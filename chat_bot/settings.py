@@ -94,11 +94,18 @@ WSGI_APPLICATION = 'chat_bot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':'db.sqlite3',
+        'NAME':os.path.join(BASE_DIR, 'db.sqlite3'),
+        'host':'localhost',
+        'port':'5432'
     }
 }
-
-
+ACCOUNT_CONFIRM_EMAIL_ON_GET=False
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'abcd@gmail.com'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_PORT = 587
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
