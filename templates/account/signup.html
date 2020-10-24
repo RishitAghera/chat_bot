@@ -1,21 +1,77 @@
 {% extends "account/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head%}
+    <link rel="stylesheet" href="{% static 'css/loginform/jquery.minicolors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/registrationform/registrationform.css' %}">
 
+{% endblock head %}
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<div class="container" style="width:60%;">
+<div class="card bg-light">
+<article class="card-body mx-auto" style="max-width: 400px;">
+	<h4 class="card-title mt-3 text-center">Create Account</h4>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+<!--<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">-->
+<!--  {% csrf_token %}-->
+<!--  {% for field in form %}-->
+<!--  {{field}}<br>-->
+<!--  {% endfor %}-->
+<!--  {% if redirect_field_value %}-->
+<!--  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />-->
+<!--  {% endif %}-->
+<!--  <button type="submit">{% trans "Sign Up" %} &raquo;</button>-->
+<!--</form>-->
+<form action="{% url 'account_signup' %}" align="center" id="registrationform" method="post">{% csrf_token %}
+  <div class="form-group ico">
+    <input type="email" name="email" class="form-control" placeholder="email" autofocus="">
+    <div class="icon"><i class="fas fa-envelope"></i></div>
+
+  </div>
+  <div class="form-group ico">
+    <input name="username" type="text" class="form-control" placeholder="username" required>
+    <div class="icon"><i class="fas fa-envelope"></i></div>
+
+  </div>
+  <div class="form-group ico pass">
+    <input name="password1" type="password" class="form-control" placeholder="password" required>
+    <div class="icon"><i class="fas fa-lock"></i></div>
+  </div>
+  <div class="form-group ico pass">
+    <input name="password2" type="password" class="form-control" placeholder="confirm password" required>
+    <div class="icon"><i class="fas fa-lock"></i></div>
+  </div>
+
+
+  <div class="hideMessage">
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="input-msg text-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div class="input-msg text-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="btn-row">
+    <button type="submit" class="btn btn-primary">{% trans 'submit'%}</button>
+  </div>
 </form>
+</article>
+</div>
+</div>
+<script src="{% static 'js/loginform/jquery.minicolors.min.js' %}"></script>
 
 {% endblock %}

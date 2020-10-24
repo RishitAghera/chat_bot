@@ -1,12 +1,68 @@
 {% extends 'account/base.html' %}
+{% load static %}
+{% load i18n %}
 
 {% block title %}Login{% endblock %}
+{% block head%}
+    <link rel="stylesheet" href="{% static 'css/loginform/jquery.minicolors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loginform/login_css.css' %}">
 
+{% endblock head %}
 {% block content %}
-  <h2>Login aefqf</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<!--  <h2>Login aefqf</h2>-->
+<!--  <form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form.as_p }}-->
+<!--    <button type="submit">Login</button>-->
+<!--  </form>-->
+<div class="container">
+<!--<h1 class="form-heading">login Form</h1>-->
+<div class="login-form">
+<div class="main-div">
+    <div class="panel">
+   <h2>Login</h2>
+   <p>Please enter your email and password</p>
+   </div>
+<form action="{% url 'account_login' %}" method="post" id="loginform">{% csrf_token %}
+  <div class="form-group ico">
+    <input type="text" name="login" class="form-control" placeholder="Email/Username" autofocus="">
+    <div class="icon"><i class="fas fa-envelope"></i></div>
+    <!--          <div class="input-msg text-danger">Email id is not valid.</div>-->
+  </div>
+  <div class="form-group ico pass">
+    <input name="password" type="password" class="form-control" placeholder="Password">
+    <div class="icon"><i class="fas fa-lock"></i></div>
+    <div class="icon2"><i class="fas fa-eye"></i></div>
+  </div>
+
+  <div class="forgot-link">
+    <a href="{% url 'account_reset_password' %}">{% trans 'Forgot password?'%}</a>
+  </div>
+  <div class="hideMessage">
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="input-msg text-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div class="input-msg text-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="btn-row">
+    <button type="submit" class="btn btn-primary">{% trans 'Log in' %}</button>
+  </div>
+
+</form>
+      </div>
+<!--<p class="botto-text"> Designed by Sunil Rajput</p>-->
+</div></div></div>
+<script src="{% static 'js/loginform/clc-customizer.js' %}"></script>
+<script src="{% static 'js/loginform/jquery.minicolors.min.js' %}"></script>
+
 {% endblock %}
