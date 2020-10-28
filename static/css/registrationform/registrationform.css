@@ -30,3 +30,9 @@ body#Form{ background-image:url("../../img/bg.jpg"); background-position:center;
     background-color: #42AEEC;
     color: #fff;
 }
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
